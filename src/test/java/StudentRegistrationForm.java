@@ -1,8 +1,12 @@
 import DataObject.DbStudent;
+import Steps.StudentSteps;
+import com.codeborne.selenide.AssertionMode;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.testng.SoftAsserts;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -13,6 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class StudentRegistrationForm {
 
+    StudentSteps studentSteps = new StudentSteps();
 
     @BeforeTest
     public void ConfigTests() {
@@ -21,15 +26,19 @@ public class StudentRegistrationForm {
         Configuration.timeout = 8;
 
 
+
     }
 
     @Test
-    public void FillForm() throws SQLException {
+    public void validateInsertedAndUpdatedStudentInfo() throws SQLException {
 
-        open("https://demoqa.com/automation-practice-form");
-        DbStudent.getStudentInfo();
+        studentSteps.InsertStudet().ValidateInsertedValues().UpdateStudet().ValidateUpdatedValue();
+
 
     }
+
+
+
 
 
     @AfterTest
